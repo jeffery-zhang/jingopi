@@ -10,7 +10,8 @@
   "packages": [
     "npm:pi-fff",
     "npm:pi-web-access",
-    "npm:pi-mcp-adapter"
+    "npm:pi-mcp-adapter",
+    "npm:pi-chrome"
   ],
   "hideThinkingBlock": true,
   "httpIdleTimeoutMs": 300000,
