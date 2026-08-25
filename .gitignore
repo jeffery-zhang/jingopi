@@ -1,5 +1,6 @@
 # Credentials and files that contain API keys
 agent/auth.json
+agent/trust.json
 agent/models.json
 agent/models-store.json
 web-search.json
