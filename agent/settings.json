@@ -8,10 +8,10 @@
   ],
   "theme": "dark",
   "packages": [
-    "npm:pi-fff@0.1.12",
-    "npm:pi-web-access@0.24.2",
-    "npm:pi-mcp-adapter@2.27.0",
-    "npm:pi-chrome@0.15.46"
+    "npm:pi-fff",
+    "npm:pi-web-access",
+    "npm:pi-mcp-adapter",
+    "npm:pi-chrome"
   ],
   "hideThinkingBlock": true,
   "httpIdleTimeoutMs": 300000,

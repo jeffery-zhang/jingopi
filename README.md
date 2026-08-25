@@ -8,29 +8,36 @@ https://github.com/jeffery-zhang/jingopi
 
 ## 版本
 
-- Pi：`0.84.3`
+- Pi：`>=0.84.0`（本机当前参考版本：`0.84.3`）
 - Node.js/npm：需要支持当前 Pi 版本
 - 配置作用域：`~/.pi/agent/settings.json`
 
-Pi 本身不由 `settings.json` 锁定。安装指定版本：
+Pi 本身不由 `settings.json` 锁定。新电脑应使用 `0.84.0` 或更高版本：
 
 ```bash
-npm install -g --ignore-scripts @earendil-works/pi-coding-agent@0.84.3
+npm install -g --ignore-scripts @earendil-works/pi-coding-agent
+pi --version
 ```
 
 ## 已安装的 Pi 包
 
-| 包 | 版本 | 作用 | 主要配置入口 |
+| 包 | 本机当前版本（参考） | 作用 | 主要配置入口 |
 | --- | --- | --- | --- |
 | `pi-fff` | `0.1.12` | 模糊文件查找、索引内容搜索、增强 `read`/`grep`，并提供 `find_files`、`fff_grep` 等工具 | `/fff-features`、`/fff-status` |
 | `pi-web-access` | `0.24.2` | 网页搜索、网页内容提取、GitHub 仓库读取、PDF、YouTube 和视频分析 | `~/.pi/web-search.json` |
 | `pi-mcp-adapter` | `2.27.0` | 通过单个代理工具按需发现和调用 MCP 工具，支持 MCP OAuth 和 `mcpScript` | `~/.pi/agent/mcp.json`、`.mcp.json` |
 | `pi-chrome` | `0.15.46` | 通过 Chrome 扩展操作现有 Chrome profile 中的标签页和网页 | `/chrome onboard`、`/chrome doctor` |
 
-包版本在 `agent/settings.json` 的 `packages` 数组中精确锁定。精确版本不会被 `pi update --extensions` 自动升级。升级某个包时，显式指定新版本：
+`agent/settings.json` 只记录包名，不锁定扩展版本。新电脑启动时会安装当前可用版本；上表版本只是本机当前参考值。更新已安装的包：
 
 ```bash
-pi install npm:pi-chrome@0.15.47
+pi update --extensions
+```
+
+也可以只更新一个包：
+
+```bash
+pi update npm:pi-chrome
 ```
 
 ## 全局设置
@@ -195,12 +202,12 @@ Pi 登录凭据位于 `~/.pi/agent/auth.json` 或操作系统凭据库，应该�
 ## 新电脑安装流程
 
 ```bash
-npm install -g --ignore-scripts @earendil-works/pi-coding-agent@0.84.3
+npm install -g --ignore-scripts @earendil-works/pi-coding-agent
 git clone https://github.com/jeffery-zhang/jingopi.git ~/.pi
 pi
 ```
 
-Pi 启动时会根据 `agent/settings.json` 自动安装缺失的、已锁定版本的 Pi 包。启动后验证：
+Pi 启动时会根据 `agent/settings.json` 自动安装缺失的 Pi 包，扩展版本不锁定。启动后验证：
 
 ```bash
 pi list
