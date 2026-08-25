@@ -1,0 +1,32 @@
+# Credentials and files that contain API keys
+agent/auth.json
+agent/models.json
+agent/models-store.json
+web-search.json
+web-search.json.*
+agent/mcp-oauth/
+agent/oauth/
+agent/keyring/
+agent/*.key
+agent/*.pem
+*.local.json
+
+# Downloaded packages, binaries, runtime state, sessions, and caches
+agent/bin/
+agent/npm/
+agent/pi-fff/
+agent/sessions/
+agent/skills/*
+!agent/skills/.gitkeep
+agent/mcp-cache.json
+agent/mcp-cache/
+agent/mcp-npx-cache.json
+agent/mcp-cache*/
+agent/mcp-*/
+web-search-cache/
+web-search-cache.json
+
+# Logs and OS metadata
+*.log
+.DS_Store
+Thumbs.db

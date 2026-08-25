@@ -1,0 +1,21 @@
+{
+  "lastChangelogVersion": "0.84.3",
+  "defaultProvider": "muryo",
+  "defaultModel": "deepseek-v4-flash-vision-exp",
+  "defaultThinkingLevel": "max",
+  "enabledModels": [
+    "muryo/*"
+  ],
+  "theme": "dark",
+  "packages": [
+    "npm:pi-fff",
+    "npm:pi-web-access",
+    "npm:pi-mcp-adapter"
+  ],
+  "hideThinkingBlock": true,
+  "httpIdleTimeoutMs": 300000,
+  "terminal": {
+    "showTerminalProgress": true
+  },
+  "tuiMode": "regular"
+}
