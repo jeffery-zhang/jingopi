@@ -27,6 +27,7 @@ pi --version
 | `pi-web-access` | `0.24.2` | 网页搜索、网页内容提取、GitHub 仓库读取、PDF、YouTube 和视频分析 | `~/.pi/web-search.json` |
 | `pi-mcp-adapter` | `2.27.0` | 通过单个代理工具按需发现和调用 MCP 工具，支持 MCP OAuth 和 `mcpScript` | `~/.pi/agent/mcp.json`、`.mcp.json` |
 | `pi-chrome` | `0.15.46` | 通过 Chrome 扩展操作现有 Chrome profile 中的标签页和网页 | `/chrome onboard`、`/chrome doctor` |
+| `pi-rtk-optimizer` | `0.9.0` | 自动将 `bash` 重写为 `rtk` 等效命令并压缩工具输出（`bash`/`read`/`grep`），降低上下文占用 | `/rtk`、`/rtk stats` |
 
 `agent/settings.json` 只记录包名，不锁定扩展版本。新电脑启动时会安装当前可用版本；上表版本只是本机当前参考值。更新已安装的包：
 
@@ -182,6 +183,36 @@ OAuth 凭据保存在操作系统凭据库，不会随 Git 仓库同步。新电
 ```
 
 Chrome 的 Cookie、登录状态、已打开标签页和 profile 不属于 Pi 配置，需要在每台电脑上使用或准备对应的 Chrome profile。
+
+## pi-rtk-optimizer 配置
+
+默认安装后即可生效。主要功能包括：
+
+- **命令重写**：将开发工作流中的 `bash` 命令自动委托重写为 `rtk` 命令（需安装 `rtk` 二进制，若未安装会自动回退为原生命令）。
+- **输出压缩**：管道化压缩工具输出（ANSI 剥离、测试/构建/Git/Linter 输出聚合、搜索结果分组、智能与硬截断等），大幅降低 Context Token 消耗。
+
+可在 Pi 中执行：
+
+```text
+/rtk
+```
+
+打开交互式 TUI 设置面板。其他常用命令：
+
+```text
+/rtk show
+/rtk verify
+/rtk stats
+/rtk reset
+```
+
+配置文件路径：
+
+```text
+~/.pi/agent/extensions/pi-rtk-optimizer/config.json
+```
+
+该配置会随仓库同步，用于在新电脑复现当前扩展设置。
 
 ## 自定义模型和凭据
 
