@@ -1,7 +1,7 @@
 {
   "lastChangelogVersion": "0.84.3",
   "defaultProvider": "muryo",
-  "defaultModel": "deepseek-v4-flash",
+  "defaultModel": "gpt-5.6-luna",
   "defaultThinkingLevel": "max",
   "npmCommand": [
     "npm",
