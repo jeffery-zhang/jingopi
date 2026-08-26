@@ -27,6 +27,7 @@ agent/mcp-cache*/
 agent/mcp-*/
 web-search-cache/
 web-search-cache.json
+research/
 
 # Logs and OS metadata
 *.log
