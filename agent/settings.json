@@ -18,7 +18,8 @@
     "npm:pi-mcp-adapter",
     "npm:pi-chrome",
     "npm:pi-rtk-optimizer",
-    "npm:@jingoz/pi-questionnaire"
+    "npm:@jingoz/pi-questionnaire",
+    "npm:pi-tool-display"
   ],
   "hideThinkingBlock": true,
   "httpIdleTimeoutMs": 300000,
