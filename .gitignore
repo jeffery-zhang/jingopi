@@ -25,6 +25,7 @@ agent/mcp-cache/
 agent/mcp-npx-cache.json
 agent/mcp-cache*/
 agent/mcp-*/
+agent/run-history.jsonl
 web-search-cache/
 web-search-cache.json
 research/
