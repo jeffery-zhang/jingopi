@@ -16,6 +16,7 @@ agent/*.pem
 agent/bin/
 agent/npm/
 agent/pi-fff/
+agent/fff/
 agent/sessions/
 agent/skills/*
 !agent/skills/.gitkeep
