@@ -1,8 +1,13 @@
 {
   "lastChangelogVersion": "0.84.3",
   "defaultProvider": "muryo",
-  "defaultModel": "deepseek-v4-flash-vision-exp",
+  "defaultModel": "deepseek-v4-flash",
   "defaultThinkingLevel": "max",
+  "npmCommand": [
+    "npm",
+    "--registry",
+    "https://registry.npmmirror.com"
+  ],
   "enabledModels": [
     "muryo/*"
   ],
