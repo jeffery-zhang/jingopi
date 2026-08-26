@@ -28,6 +28,7 @@ pi --version
 | `pi-mcp-adapter` | `2.27.0` | 通过单个代理工具按需发现和调用 MCP 工具，支持 MCP OAuth 和 `mcpScript` | `~/.pi/agent/mcp.json`、`.mcp.json` |
 | `pi-chrome` | `0.15.46` | 通过 Chrome 扩展操作现有 Chrome profile 中的标签页和网页 | `/chrome onboard`、`/chrome doctor` |
 | `pi-rtk-optimizer` | `0.9.0` | 自动将 `bash` 重写为 `rtk` 等效命令并压缩工具输出（`bash`/`read`/`grep`），降低上下文占用 | `/rtk`、`/rtk stats` |
+| `@jingoz/pi-questionnaire` | `0.1.0` | TUI 交互式问卷工具，支持单问题和多问题标签界面，用于收集用户偏好与决策 | 无（通过 `questionnaire` 工具参数配置） |
 
 `agent/settings.json` 只记录包名，不锁定扩展版本。新电脑启动时会安装当前可用版本；上表版本只是本机当前参考值。更新已安装的包：
 
@@ -213,6 +214,12 @@ Chrome 的 Cookie、登录状态、已打开标签页和 profile 不属于 Pi �
 ```
 
 该配置会随仓库同步，用于在新电脑复现当前扩展设置。
+
+## pi-questionnaire 配置
+
+默认安装后即可使用，无需独立配置文件。扩展会注册 `questionnaire` 工具，用于向用户提出单选或多选问题；多问题时提供标签页导航，每道题支持自定义 `label`、`prompt`、`options` 和 `allowOther`。
+
+该工具仅在 TUI 模式下可用，非交互模式会返回 UI 不可用的结果，不会阻塞运行。
 
 ## 自定义模型和凭据
 
