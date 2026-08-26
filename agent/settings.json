@@ -11,7 +11,7 @@
   "enabledModels": [
     "muryo/*"
   ],
-  "theme": "dark",
+  "theme": "catppuccin-mocha",
   "packages": [
     "npm:pi-fff",
     "npm:pi-web-access",
@@ -19,7 +19,8 @@
     "npm:pi-chrome",
     "npm:pi-rtk-optimizer",
     "npm:@jingoz/pi-questionnaire",
-    "npm:pi-tool-display"
+    "npm:pi-tool-display",
+    "npm:@victor-software-house/pi-curated-themes"
   ],
   "hideThinkingBlock": true,
   "httpIdleTimeoutMs": 300000,
