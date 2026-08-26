@@ -3,14 +3,8 @@
   "defaultProvider": "muryo",
   "defaultModel": "gpt-5.6-luna",
   "defaultThinkingLevel": "max",
-  "npmCommand": [
-    "npm",
-    "--registry",
-    "https://registry.npmmirror.com"
-  ],
-  "enabledModels": [
-    "muryo/*"
-  ],
+  "npmCommand": ["npm", "--registry", "https://registry.npmmirror.com"],
+  "enabledModels": ["muryo/*"],
   "subagents": {
     "defaultModel": "muryo/gpt-5.6-luna",
     "defaultProvider": "muryo",
@@ -18,46 +12,34 @@
     "maxThinking": "high",
     "agentOverrides": {
       "scout": {
-        "model": "muryo/gpt-5.6-luna",
-        "thinking": "low",
-        "fallbackModels": [
-          "muryo/gemini-3.7-flash-tiered:low"
-        ]
+        "model": "muryo/gemini-3.7-flash-tiered",
+        "thinking": "high",
+        "fallbackModels": ["muryo/gpt-5.6-luna:xhigh"]
       },
       "researcher": {
-        "model": "muryo/gpt-5.6-terra",
+        "model": "muryo/gpt-5.6-sol",
         "thinking": "medium",
-        "fallbackModels": [
-          "muryo/gpt-5.6-luna:high"
-        ]
+        "fallbackModels": ["muryo/gpt-5.6-terra:max"]
       },
       "worker": {
-        "model": "muryo/gpt-5.6-terra",
-        "thinking": "high",
-        "fallbackModels": [
-          "muryo/gpt-5.6-luna:high"
-        ]
+        "model": "muryo/deepseek-v4-flash",
+        "thinking": "max",
+        "fallbackModels": ["muryo/gpt-5.6-luna:max"]
       },
       "reviewer": {
-        "model": "muryo/gpt-5.6-terra",
-        "thinking": "high",
-        "fallbackModels": [
-          "muryo/gpt-5.6-luna:high"
-        ]
+        "model": "muryo/gpt-5.6-sol",
+        "thinking": "xhigh",
+        "fallbackModels": ["muryo/gpt-5.6-terra:max"]
       },
       "oracle": {
         "model": "muryo/gpt-5.6-sol",
-        "thinking": "high",
-        "fallbackModels": [
-          "muryo/gpt-5.6-terra:high"
-        ]
+        "thinking": "xhigh",
+        "fallbackModels": ["muryo/gpt-5.6-terra:max"]
       },
       "delegate": {
         "model": "muryo/gpt-5.6-luna",
-        "thinking": "high",
-        "fallbackModels": [
-          "muryo/gpt-5.6-terra:high"
-        ]
+        "thinking": "max",
+        "fallbackModels": ["muryo/gemini-3.7-flash-tiered:high"]
       }
     }
   },
