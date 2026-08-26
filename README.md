@@ -258,14 +258,14 @@ Chrome 的 Cookie、登录状态、已打开标签页和 profile 不属于 Pi �
 
 | 角色 | 模型 | thinking | 回退 |
 | --- | --- | --- | --- |
-| `scout` | `muryo/gpt-5.6-luna` | `low` | `muryo/gemini-3.7-flash-tiered:low` |
-| `researcher` | `muryo/gpt-5.6-terra` | `medium` | `muryo/gpt-5.6-luna:high` |
-| `worker` | `muryo/gpt-5.6-terra` | `high` | `muryo/gpt-5.6-luna:high` |
-| `reviewer` | `muryo/gpt-5.6-terra` | `high` | `muryo/gpt-5.6-luna:high` |
-| `oracle` | `muryo/gpt-5.6-sol` | `high` | `muryo/gpt-5.6-terra:high` |
-| `delegate` | `muryo/gpt-5.6-luna` | `high` | `muryo/gpt-5.6-terra:high` |
+| `scout` | `muryo/gemini-3.7-flash-tiered` | `max` | `muryo/gpt-5.6-luna:max` |
+| `researcher` | `muryo/gpt-5.6-sol` | `medium` | `muryo/gpt-5.6-terra:max` |
+| `worker` | `muryo/deepseek-v4-flash` | `max` | `muryo/gpt-5.6-luna:max` |
+| `reviewer` | `muryo/gpt-5.6-sol` | `xhigh` | `muryo/gpt-5.6-terra:max` |
+| `oracle` | `muryo/gpt-5.6-sol` | `xhigh` | `muryo/gpt-5.6-terra:max` |
+| `delegate` | `muryo/gpt-5.6-luna` | `max` | `muryo/gemini-3.7-flash-tiered:max` |
 
-全局默认子 agent 模型为 `muryo/gpt-5.6-luna`，默认 thinking 为 `high`，并设置 `maxThinking: high`，避免子 agent 继承父会话的 `max`。
+全局默认子 agent 模型为 `muryo/gpt-5.6-luna`，默认 thinking 与 `maxThinking` 均为 `max`。`luna`、`deepseek-v4-flash` 和 `gemini-3.7-flash-tiered` 在子 agent 主模型及回退配置中统一使用 `max`。
 
 常用命令：
 
