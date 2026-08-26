@@ -18,6 +18,7 @@ agent/npm/
 agent/pi-fff/
 agent/fff/
 agent/sessions/
+agent/missions/
 agent/skills/*
 !agent/skills/.gitkeep
 agent/mcp-cache.json
