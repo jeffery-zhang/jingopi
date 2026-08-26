@@ -11,6 +11,56 @@
   "enabledModels": [
     "muryo/*"
   ],
+  "subagents": {
+    "defaultModel": "muryo/gpt-5.6-luna",
+    "defaultProvider": "muryo",
+    "defaultThinking": "high",
+    "maxThinking": "high",
+    "agentOverrides": {
+      "scout": {
+        "model": "muryo/gpt-5.6-luna",
+        "thinking": "low",
+        "fallbackModels": [
+          "muryo/gemini-3.7-flash-tiered:low"
+        ]
+      },
+      "researcher": {
+        "model": "muryo/gpt-5.6-terra",
+        "thinking": "medium",
+        "fallbackModels": [
+          "muryo/gpt-5.6-luna:high"
+        ]
+      },
+      "worker": {
+        "model": "muryo/gpt-5.6-terra",
+        "thinking": "high",
+        "fallbackModels": [
+          "muryo/gpt-5.6-luna:high"
+        ]
+      },
+      "reviewer": {
+        "model": "muryo/gpt-5.6-terra",
+        "thinking": "high",
+        "fallbackModels": [
+          "muryo/gpt-5.6-luna:high"
+        ]
+      },
+      "oracle": {
+        "model": "muryo/gpt-5.6-sol",
+        "thinking": "high",
+        "fallbackModels": [
+          "muryo/gpt-5.6-terra:high"
+        ]
+      },
+      "delegate": {
+        "model": "muryo/gpt-5.6-luna",
+        "thinking": "high",
+        "fallbackModels": [
+          "muryo/gpt-5.6-terra:high"
+        ]
+      }
+    }
+  },
   "theme": "catppuccin-mocha",
   "packages": [
     "npm:pi-fff",
@@ -20,7 +70,8 @@
     "npm:pi-rtk-optimizer",
     "npm:@jingoz/pi-questionnaire",
     "npm:pi-tool-display",
-    "npm:@victor-software-house/pi-curated-themes"
+    "npm:@victor-software-house/pi-curated-themes",
+    "npm:pi-subagents"
   ],
   "hideThinkingBlock": true,
   "httpIdleTimeoutMs": 300000,

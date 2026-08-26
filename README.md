@@ -25,6 +25,7 @@ pi --version
 | --- | --- | --- | --- |
 | `pi-fff` | `0.1.12` | 模糊文件查找、索引内容搜索、增强 `read`/`grep`，并提供 `find_files`、`fff_grep` 等工具 | `/fff-features`、`/fff-status` |
 | `pi-web-access` | `0.24.2` | 网页搜索、网页内容提取、GitHub 仓库读取、PDF、YouTube 和视频分析 | `~/.pi/web-search.json` |
+| `pi-subagents` | `0.57.0` | 子 agent 委托、并行/后台任务、workflow 脚本和角色化模型路由 | `agent/settings.json` 的 `subagents` 块 |
 | `pi-mcp-adapter` | `2.27.0` | 通过单个代理工具按需发现和调用 MCP 工具，支持 MCP OAuth 和 `mcpScript` | `~/.pi/agent/mcp.json`、`.mcp.json` |
 | `pi-chrome` | `0.15.46` | 通过 Chrome 扩展操作现有 Chrome profile 中的标签页和网页 | `/chrome onboard`、`/chrome doctor` |
 | `pi-rtk-optimizer` | `0.9.0` | 自动将 `bash` 重写为 `rtk` 等效命令并压缩工具输出（`bash`/`read`/`grep`），降低上下文占用 | `/rtk`、`/rtk stats` |
@@ -250,6 +251,30 @@ Chrome 的 Cookie、登录状态、已打开标签页和 profile 不属于 Pi �
 ## pi-questionnaire 配置
 
 该工具仅在 TUI 模式下可用，非交互模式会返回 UI 不可用的结果，不会阻塞运行。
+
+## pi-subagents 配置
+
+`pi-subagents` 为内置角色配置了 `muryo` 下的模型分层，配置位于 `agent/settings.json` 的 `subagents` 块。
+
+| 角色 | 模型 | thinking | 回退 |
+| --- | --- | --- | --- |
+| `scout` | `muryo/gpt-5.6-luna` | `low` | `muryo/gemini-3.7-flash-tiered:low` |
+| `researcher` | `muryo/gpt-5.6-terra` | `medium` | `muryo/gpt-5.6-luna:high` |
+| `worker` | `muryo/gpt-5.6-terra` | `high` | `muryo/gpt-5.6-luna:high` |
+| `reviewer` | `muryo/gpt-5.6-terra` | `high` | `muryo/gpt-5.6-luna:high` |
+| `oracle` | `muryo/gpt-5.6-sol` | `high` | `muryo/gpt-5.6-terra:high` |
+| `delegate` | `muryo/gpt-5.6-luna` | `high` | `muryo/gpt-5.6-terra:high` |
+
+全局默认子 agent 模型为 `muryo/gpt-5.6-luna`，默认 thinking 为 `high`，并设置 `maxThinking: high`，避免子 agent 继承父会话的 `max`。
+
+常用命令：
+
+```text
+/subagents-models
+/subagents-models reviewer
+/subagents-doctor
+/subagents-guide
+```
 
 ## 自定义模型和凭据
 
