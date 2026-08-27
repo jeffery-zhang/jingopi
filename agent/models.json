@@ -99,9 +99,9 @@
             "off": null,
             "minimal": null,
             "low": "low",
-            "medium": "medium",
+            "medium": null,
             "high": "high",
-            "xhigh": "xhigh",
+            "xhigh": null,
             "max": "max"
           }
         },
@@ -119,9 +119,9 @@
             "off": null,
             "minimal": null,
             "low": "low",
-            "medium": "medium",
+            "medium": null,
             "high": "high",
-            "xhigh": "xhigh",
+            "xhigh": null,
             "max": "max"
           }
         },
