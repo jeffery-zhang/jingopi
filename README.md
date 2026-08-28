@@ -30,6 +30,7 @@ pi --version
 | `pi-chrome` | `0.15.46` | 通过 Chrome 扩展操作现有 Chrome profile 中的标签页和网页 | `/chrome onboard`、`/chrome doctor` |
 | `pi-rtk-optimizer` | `0.9.0` | 自动将 `bash` 重写为 `rtk` 等效命令并压缩工具输出（`bash`/`read`/`grep`），降低上下文占用 | `/rtk`、`/rtk stats` |
 | `@jingoz/pi-questionnaire` | `0.1.0` | TUI 交互式问卷工具，支持单问题和多问题标签界面，用于收集用户偏好与决策 | 无（通过 `questionnaire` 工具参数配置） |
+| `@jingoz/pi-image-input` | `0.1.0` | 将 Pi TUI 原生剪贴板图片路径转换为 `[Image]` 标记和图片附件；要求 Pi `>=0.84.3` 且当前模型支持图片 | 无（重启 Pi 或执行 `/reload`） |
 | `pi-tool-display` | `0.5.0` | OpenCode 风格精简工具调用、隐藏/摘要工具输出、紧凑 diff 和用户消息框 | `/tool-display`、`~/.pi/agent/extensions/pi-tool-display/config.json` |
 | `@victor-software-house/pi-curated-themes` | `0.2.1` | 65+ 款精选暗色终端主题大合集（适配自 iTerm2 配色，含 Catppuccin、Gruvbox、Kanagawa、Dracula+ 等） | `/settings`（选择主题） |
 

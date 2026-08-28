@@ -53,10 +53,10 @@
     "npm:@jingoz/pi-questionnaire",
     "npm:pi-tool-display",
     "npm:@victor-software-house/pi-curated-themes",
-    "npm:pi-subagents"
+    "npm:pi-subagents",
+    "npm:@jingoz/pi-image-input"
   ],
   "hideThinkingBlock": true,
-  "httpProxy": "http://127.0.0.1:10808",
   "httpIdleTimeoutMs": 300000,
   "terminal": {
     "showTerminalProgress": true
