@@ -33,6 +33,7 @@ pi --version
 | `@jingoz/pi-image-input` | `0.2.0` | 将 Pi TUI 原生剪贴板图片路径转换为 `[Image]` 标记和图片附件；要求 Pi `>=0.84.3` 且当前模型支持图片 | 无（重启 Pi 或执行 `/reload`） |
 | `pi-tool-display` | `0.5.0` | OpenCode 风格精简工具调用、隐藏/摘要工具输出、紧凑 diff 和用户消息框 | `/tool-display`、`~/.pi/agent/extensions/pi-tool-display/config.json` |
 | `@victor-software-house/pi-curated-themes` | `0.2.1` | 65+ 款精选暗色终端主题大合集（适配自 iTerm2 配色，含 Catppuccin、Gruvbox、Kanagawa、Dracula+ 等） | `/settings`（选择主题） |
+| `pi-hermes-memory` | `0.9.7` | 本地持久记忆、项目记忆、历史会话全文检索、自动复盘、纠错记录和 procedural skills | `/memory-insights`、`/memory-skills` |
 
 `agent/settings.json` 只记录包名，不锁定扩展版本。新电脑启动时会安装当前可用版本；上表版本只是本机当前参考值。更新已安装的包：
 
@@ -155,6 +156,37 @@ pi update npm:pi-chrome
 ```
 
 OAuth 凭据保存在操作系统凭据库，不会随 Git 仓库同步。新电脑需要重新执行 `/mcp-auth cloudflare`。
+
+## pi-hermes-memory 配置
+
+当前不创建 `hermes-memory-config.json`，直接使用 `pi-hermes-memory` 的官方内置默认配置：
+
+- `policy-only` 模式，注入完整 memory policy，需要时通过工具检索记忆。
+- 每 10 轮或 15 次工具调用执行后台复盘。
+- 启用 correction detection、压缩前 flush 和退出时 flush。
+- 记忆达到上限时自动 consolidation。
+- 启用 `skill_manage`，允许主 agent 在正常工作中创建和维护 procedural skills。
+- 启用 standing instructions 和 SQLite FTS5 session search。
+
+数据目录：
+
+```text
+~/.pi/agent/pi-hermes-memory/
+~/.pi/agent/projects-memory/
+```
+
+常用命令：
+
+```text
+/memory-insights
+/memory-skills
+/memory-index-sessions
+/memory-sync-markdown
+/memory-preview-context
+/memory-pin
+```
+
+扩展会在启动时有界回填历史 session；需要完整重建索引时执行 `/memory-index-sessions`。升级包或调整配置后执行 `/reload`。
 
 ## pi-chrome 配置
 

@@ -17,6 +17,9 @@ agent/bin/
 agent/npm/
 agent/pi-fff/
 agent/fff/
+agent/pi-hermes-memory/
+agent/projects-memory/
+agent/.pi-hermes-locks.sqlite*
 agent/sessions/
 agent/missions/
 agent/skills/*
