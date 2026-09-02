@@ -8,7 +8,7 @@ https://github.com/jeffery-zhang/jingopi
 
 ## 版本
 
-- Pi：`>=0.84.0`（本机当前参考版本：`0.84.3`）
+- Pi：`>=0.84.0`（本机当前参考版本：`0.84.4`）
 - Node.js/npm：需要支持当前 Pi 版本
 - 配置作用域：`~/.pi/agent/settings.json`
 
@@ -58,10 +58,10 @@ pi update npm:pi-chrome
 当前重要设置包括：
 
 - 默认 provider：`muryo`
-- 默认模型：`deepseek-v4-flash-vision-exp`
-- 默认思考等级：`max`
+- 默认模型：`gpt-5.6-sol`
+- 默认思考等级：`medium`
 - 可循环模型：`muryo/*`
-- 深色主题
+- 主题：`catppuccin-mocha`
 - 隐藏 thinking block
 - HTTP 空闲超时：`300000` 毫秒
 
@@ -139,7 +139,7 @@ pi update npm:pi-chrome
 ~/.pi/agent/mcp.json
 ```
 
-当前配置包含 Cloudflare OAuth MCP server。项目级配置可以使用：
+当前配置包含 Cloudflare OAuth MCP server 和通过本机 `codegraph serve --mcp` 启动的 CodeGraph MCP server。项目级配置可以使用：
 
 ```text
 .mcp.json
@@ -155,7 +155,11 @@ pi update npm:pi-chrome
 /mcp logout cloudflare
 ```
 
-OAuth 凭据保存在操作系统凭据库，不会随 Git 仓库同步。新电脑需要重新执行 `/mcp-auth cloudflare`。
+OAuth 凭据保存在操作系统凭据库，不会随 Git 仓库同步。新电脑需要重新执行 `/mcp-auth cloudflare`。CodeGraph server 要求本机已安装可执行的 `codegraph` 命令。
+
+## Herdr 状态扩展
+
+`agent/extensions/herdr-agent-state.ts` 由 Herdr 管理，用于向 Herdr pane 报告当前 Pi 会话及 `working`、`blocked`、`idle` 状态。仅在 Herdr 注入 `HERDR_ENV=1`、`HERDR_SOCKET_PATH` 和 `HERDR_PANE_ID` 时启用；普通 Pi 会话不会建立连接。Herdr 重新安装或升级集成时可能覆盖该文件。
 
 ## pi-hermes-memory 配置
 
@@ -279,7 +283,7 @@ Chrome 的 Cookie、登录状态、已打开标签页和 profile 不属于 Pi �
 /reload
 ```
 
-当前 Pi 为 `0.84.3`，而 `pi-tool-display@0.5.0` 的 peer 依赖声明最高到 `0.80.x`。本配置已在本机通过 Pi 启动、RPC 命令注册和多行 `bash`/`find` smoke test 验证。直接执行 `/tool-display preset opencode` 会把所有 ownership 重置为 `true`，与 `pi-fff` 的 `read`/`grep` 冲突；因此当前配置保留这两个工具为 `false`，`/tool-display show` 显示 `preset=custom` 是预期结果。
+当前 Pi 为 `0.84.4`，而 `pi-tool-display@0.5.0` 的 peer 依赖声明最高到 `0.80.x`。本配置已在本机通过 Pi 启动、RPC 命令注册和多行 `bash`/`find` smoke test 验证。直接执行 `/tool-display preset opencode` 会把所有 ownership 重置为 `true`，与 `pi-fff` 的 `read`/`grep` 冲突；因此当前配置保留这两个工具为 `false`，`/tool-display show` 显示 `preset=custom` 是预期结果。
 
 ## pi-questionnaire 配置
 
@@ -293,12 +297,12 @@ Chrome 的 Cookie、登录状态、已打开标签页和 profile 不属于 Pi �
 | --- | --- | --- | --- |
 | `scout` | `muryo/gemini-3.7-flash-tiered` | `max` | `muryo/gpt-5.6-luna:max` |
 | `researcher` | `muryo/gpt-5.6-sol` | `medium` | `muryo/gpt-5.6-terra:max` |
-| `worker` | `muryo/deepseek-v4-flash` | `max` | `muryo/gpt-5.6-luna:max` |
+| `worker` | `muryo/deepseek-v4-flash` | `max` | `muryo/gpt-5.6-terra:max` |
 | `reviewer` | `muryo/gpt-5.6-sol` | `xhigh` | `muryo/gpt-5.6-terra:max` |
 | `oracle` | `muryo/gpt-5.6-sol` | `xhigh` | `muryo/gpt-5.6-terra:max` |
 | `delegate` | `muryo/gpt-5.6-luna` | `max` | `muryo/gemini-3.7-flash-tiered:max` |
 
-全局默认子 agent 模型为 `muryo/gpt-5.6-luna`，默认 thinking 与 `maxThinking` 均为 `max`。`luna`、`deepseek-v4-flash` 和 `gemini-3.7-flash-tiered` 在子 agent 主模型及回退配置中统一使用 `max`。
+全局默认子 agent 模型为 `muryo/gpt-5.6-sol`，默认 thinking 与 `maxThinking` 均为 `max`。`luna`、`deepseek-v4-flash` 和 `gemini-3.7-flash-tiered` 在子 agent 主模型及回退配置中统一使用 `max`。
 
 常用命令：
 

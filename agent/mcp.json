@@ -4,6 +4,10 @@
       "url": "https://mcp.cloudflare.com/mcp",
       "auth": "oauth",
       "protocolVersion": "auto"
+    },
+    "codegraph": {
+      "command": "codegraph",
+      "args": ["serve", "--mcp"]
     }
   }
 }
