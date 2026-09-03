@@ -34,6 +34,7 @@ pi --version
 | `pi-tool-display` | `0.5.0` | OpenCode 风格精简工具调用、隐藏/摘要工具输出、紧凑 diff 和用户消息框 | `/tool-display`、`~/.pi/agent/extensions/pi-tool-display/config.json` |
 | `@victor-software-house/pi-curated-themes` | `0.2.1` | 65+ 款精选暗色终端主题大合集（适配自 iTerm2 配色，含 Catppuccin、Gruvbox、Kanagawa、Dracula+ 等） | `/settings`（选择主题） |
 | `pi-hermes-memory` | `0.9.7` | 本地持久记忆、项目记忆、历史会话全文检索、自动复盘、纠错记录和 procedural skills | `/memory-insights`、`/memory-skills` |
+| `pi-antigravity` | `0.7.0` | 使用 Google OAuth 直连 Antigravity / Cloud Code Assist 内部 API，提供 Gemini、Claude、GPT-OSS 模型和配额诊断 | `/login antigravity`、`/antigravity.models`、`/antigravity.doctor` |
 
 `agent/settings.json` 只记录包名，不锁定扩展版本。新电脑启动时会安装当前可用版本；上表版本只是本机当前参考值。更新已安装的包：
 
@@ -60,7 +61,7 @@ pi update npm:pi-chrome
 - 默认 provider：`muryo`
 - 默认模型：`gpt-5.6-sol`
 - 默认思考等级：`medium`
-- 可循环模型：`muryo/*`
+- 可循环模型：精选 `muryo` 系列模型与 `antigravity/gemini-3.8-flash`
 - 主题：`catppuccin-mocha`
 - 隐藏 thinking block
 - HTTP 空闲超时：`300000` 毫秒
@@ -289,20 +290,39 @@ Chrome 的 Cookie、登录状态、已打开标签页和 profile 不属于 Pi �
 
 该工具仅在 TUI 模式下可用，非交互模式会返回 UI 不可用的结果，不会阻塞运行。
 
+## pi-antigravity 配置
+
+通过 Google OAuth 授权直接访问 Antigravity / Cloud Code Assist 内部 API，提供 Gemini（含 3.8 Flash）、Claude 及 GPT-OSS 等模型。
+
+首次使用或凭据失效时在 Pi 中执行：
+
+```text
+/login antigravity
+```
+
+完成浏览器 Google 账号授权（凭据自动保存于 `agent/auth.json`）。常用命令：
+
+```text
+/antigravity.models
+/antigravity.usage
+/antigravity.doctor
+/antigravity.image
+```
+
 ## pi-subagents 配置
 
-`pi-subagents` 为内置角色配置了 `muryo` 下的模型分层，配置位于 `agent/settings.json` 的 `subagents` 块。
+`pi-subagents` 为内置角色配置了模型分层与回退策略，配置位于 `agent/settings.json` 的 `subagents` 块。
 
 | 角色 | 模型 | thinking | 回退 |
 | --- | --- | --- | --- |
-| `scout` | `muryo/gemini-3.7-flash-tiered` | `max` | `muryo/gpt-5.6-luna:max` |
+| `scout` | `antigravity/gemini-3.8-flash` | `high` | `muryo/gpt-5.6-luna:max` |
 | `researcher` | `muryo/gpt-5.6-sol` | `medium` | `muryo/gpt-5.6-terra:max` |
-| `worker` | `muryo/deepseek-v4-flash` | `max` | `muryo/gpt-5.6-terra:max` |
+| `worker` | `muryo/deepseek-v4-flash` | `max` | `antigravity/gemini-3.8-flash:high` |
 | `reviewer` | `muryo/gpt-5.6-sol` | `xhigh` | `muryo/gpt-5.6-terra:max` |
 | `oracle` | `muryo/gpt-5.6-sol` | `xhigh` | `muryo/gpt-5.6-terra:max` |
-| `delegate` | `muryo/gpt-5.6-luna` | `max` | `muryo/gemini-3.7-flash-tiered:max` |
+| `delegate` | `antigravity/gemini-3.8-flash` | `high` | `muryo/gpt-5.6-luna:max` |
 
-全局默认子 agent 模型为 `muryo/gpt-5.6-sol`，默认 thinking 与 `maxThinking` 均为 `max`。`luna`、`deepseek-v4-flash` 和 `gemini-3.7-flash-tiered` 在子 agent 主模型及回退配置中统一使用 `max`。
+全局默认子 agent 模型为 `muryo/gpt-5.6-sol`，默认 thinking 为 `medium`，`maxThinking` 为 `max`。
 
 常用命令：
 

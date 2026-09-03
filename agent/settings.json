@@ -9,7 +9,14 @@
     "https://registry.npmmirror.com"
   ],
   "enabledModels": [
-    "muryo/*"
+    "muryo/gpt-5.6-sol",
+    "muryo/gpt-5.6-terra",
+    "muryo/gpt-5.6-luna",
+    "muryo/gpt-5.5",
+    "muryo/deepseek-v4-flash",
+    "muryo/deepseek-v4-flash-vision-exp",
+    "muryo/muse-spark-1.3-contributor",
+    "antigravity/gemini-3.8-flash"
   ],
   "subagents": {
     "defaultModel": "muryo/gpt-5.6-sol",
@@ -18,7 +25,7 @@
     "maxThinking": "max",
     "agentOverrides": {
       "scout": {
-        "model": "muryo/gemini-3.7-flash-tiered",
+        "model": "antigravity/gemini-3.8-flash",
         "thinking": "high",
         "fallbackModels": [
           "muryo/gpt-5.6-luna:max"
@@ -35,7 +42,7 @@
         "model": "muryo/deepseek-v4-flash",
         "thinking": "max",
         "fallbackModels": [
-          "muryo/gpt-5.6-terra:max"
+          "antigravity/gemini-3.8-flash:high"
         ]
       },
       "reviewer": {
@@ -53,10 +60,10 @@
         ]
       },
       "delegate": {
-        "model": "muryo/gpt-5.6-luna",
-        "thinking": "max",
+        "model": "antigravity/gemini-3.8-flash",
+        "thinking": "high",
         "fallbackModels": [
-          "muryo/gemini-3.7-flash-tiered:max"
+          "muryo/gpt-5.6-luna:max"
         ]
       }
     }
@@ -73,7 +80,8 @@
     "npm:@victor-software-house/pi-curated-themes",
     "npm:pi-subagents",
     "npm:@jingoz/pi-image-input",
-    "npm:pi-hermes-memory"
+    "npm:pi-hermes-memory",
+    "npm:pi-antigravity"
   ],
   "hideThinkingBlock": true,
   "httpIdleTimeoutMs": 300000,

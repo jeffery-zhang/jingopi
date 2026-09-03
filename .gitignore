@@ -15,6 +15,7 @@ agent/*.pem
 # Downloaded packages, binaries, runtime state, sessions, and caches
 agent/bin/
 agent/npm/
+agent/git/
 agent/pi-fff/
 agent/fff/
 agent/pi-hermes-memory/
