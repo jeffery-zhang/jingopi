@@ -1,5 +1,5 @@
 {
-  "lastChangelogVersion": "0.84.4",
+  "lastChangelogVersion": "0.85.1",
   "defaultProvider": "muryo",
   "defaultModel": "gpt-5.6-sol",
   "defaultThinkingLevel": "medium",
@@ -13,9 +13,7 @@
     "muryo/gpt-5.6-terra",
     "muryo/gpt-5.6-luna",
     "muryo/gpt-5.5",
-    "muryo/deepseek-v4-flash",
-    "muryo/deepseek-v4-flash-vision-exp",
-    "muryo/muse-spark-1.3-contributor",
+    "muryo/muse-spark-1.3-contributor-free",
     "antigravity/gemini-3.8-flash"
   ],
   "subagents": {
@@ -39,8 +37,8 @@
         ]
       },
       "worker": {
-        "model": "muryo/deepseek-v4-flash",
-        "thinking": "max",
+        "model": "muryo/muse-spark-1.3-contributor-free",
+        "thinking": "high",
         "fallbackModels": [
           "antigravity/gemini-3.8-flash:high"
         ]
