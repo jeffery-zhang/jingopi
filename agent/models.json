@@ -2,7 +2,7 @@
   "providers": {
     "muryo": {
       "name": "muryo",
-      "baseUrl": "https://muryorouter.cc",
+      "baseUrl": "https://cpa.muryorouter.cc/v1",
       "api": "openai-responses",
       "apiKey": "$MURYO_API_KEY",
       "models": [
