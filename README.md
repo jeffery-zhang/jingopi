@@ -303,7 +303,7 @@ Chrome 的 Cookie、登录状态、已打开标签页和 profile 不属于 Pi �
 | --- | --- | --- | --- |
 | `scout` | `muryo/gemini-3.8-flash-high` | `high` | `muryo/gpt-5.6-luna:max` |
 | `researcher` | `muryo/gpt-5.6-sol` | `medium` | `muryo/gpt-5.6-terra:max` |
-| `worker` | `muryo/muse-spark-1.3-contributor-free` | `high` | `muryo/gemini-3.8-flash-high:high` |
+| `worker` | `muryo/gpt-5.6-luna` | `max` | `muryo/gemini-3.8-flash-high:high` |
 | `reviewer` | `muryo/gpt-5.6-sol` | `xhigh` | `muryo/gpt-5.6-terra:max` |
 | `oracle` | `muryo/gpt-5.6-sol` | `xhigh` | `muryo/gpt-5.6-terra:max` |
 | `delegate` | `muryo/gemini-3.8-flash-high` | `high` | `muryo/gpt-5.6-luna:max` |
