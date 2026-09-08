@@ -105,6 +105,26 @@
             "xhigh": null,
             "max": null
           }
+        },
+        {
+          "id": "gemini-3.8-flash-high",
+          "name": "Gemini 3.8 Flash High (Muryo)",
+          "reasoning": true,
+          "input": [
+            "text",
+            "image"
+          ],
+          "contextWindow": 1000000,
+          "maxTokens": 32000,
+          "thinkingLevelMap": {
+            "off": null,
+            "minimal": null,
+            "low": "low",
+            "medium": "medium",
+            "high": "high",
+            "xhigh": "high",
+            "max": "high"
+          }
         }
       ],
       "headers": {

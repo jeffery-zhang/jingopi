@@ -14,7 +14,7 @@
     "muryo/gpt-5.6-luna",
     "muryo/gpt-5.5",
     "muryo/muse-spark-1.3-contributor-free",
-    "antigravity/gemini-3.8-flash"
+    "muryo/gemini-3.8-flash-high"
   ],
   "subagents": {
     "defaultModel": "muryo/gpt-5.6-sol",
@@ -23,7 +23,7 @@
     "maxThinking": "max",
     "agentOverrides": {
       "scout": {
-        "model": "antigravity/gemini-3.8-flash",
+        "model": "muryo/gemini-3.8-flash-high",
         "thinking": "high",
         "fallbackModels": [
           "muryo/gpt-5.6-luna:max"
@@ -40,7 +40,7 @@
         "model": "muryo/muse-spark-1.3-contributor-free",
         "thinking": "high",
         "fallbackModels": [
-          "antigravity/gemini-3.8-flash:high"
+          "muryo/gemini-3.8-flash-high:high"
         ]
       },
       "reviewer": {
@@ -58,7 +58,7 @@
         ]
       },
       "delegate": {
-        "model": "antigravity/gemini-3.8-flash",
+        "model": "muryo/gemini-3.8-flash-high",
         "thinking": "high",
         "fallbackModels": [
           "muryo/gpt-5.6-luna:max"
@@ -78,8 +78,7 @@
     "npm:@victor-software-house/pi-curated-themes",
     "npm:pi-subagents",
     "npm:@jingoz/pi-image-input",
-    "npm:pi-hermes-memory",
-    "npm:pi-antigravity"
+    "npm:pi-hermes-memory"
   ],
   "hideThinkingBlock": true,
   "httpIdleTimeoutMs": 300000,
