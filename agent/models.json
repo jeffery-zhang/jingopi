@@ -99,10 +99,10 @@
           "thinkingLevelMap": {
             "off": null,
             "minimal": null,
-            "low": "low",
+            "low": null,
             "medium": null,
-            "high": "high",
-            "xhigh": null,
+            "high": null,
+            "xhigh": "xhigh",
             "max": null
           }
         },
@@ -119,10 +119,10 @@
           "thinkingLevelMap": {
             "off": null,
             "minimal": null,
-            "low": "low",
+            "low": null,
             "medium": null,
-            "high": "high",
-            "xhigh": null,
+            "high": null,
+            "xhigh": "xhigh",
             "max": null
           }
         },
@@ -160,9 +160,9 @@
             "off": null,
             "minimal": null,
             "low": "low",
-            "medium": "medium",
+            "medium": null,
             "high": "high",
-            "xhigh": "xhigh",
+            "xhigh": null,
             "max": "max"
           }
         }
