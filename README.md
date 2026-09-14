@@ -34,6 +34,7 @@ pi --version
 | `pi-tool-display` | `0.5.0` | OpenCode 风格精简工具调用、隐藏/摘要工具输出、紧凑 diff 和用户消息框 | `/tool-display`、`~/.pi/agent/extensions/pi-tool-display/config.json` |
 | `@victor-software-house/pi-curated-themes` | `0.2.1` | 65+ 款精选暗色终端主题大合集（适配自 iTerm2 配色，含 Catppuccin、Gruvbox、Kanagawa、Dracula+ 等） | `/settings`（选择主题） |
 | `pi-hermes-memory` | `0.9.7` | 本地持久记忆、项目记忆、历史会话全文检索、自动复盘、纠错记录和 procedural skills | `/memory-insights`、`/memory-skills` |
+| `pi-btw` | `0.4.1` | Claude Code 风格并发旁路对话与独立子会话浮窗，支持多轮追问、独立模型/思考等级、一键注入/摘要回主线，不污染主会话历史 | `/btw`、`/btw:new`、`/btw:inject`、`/btw:summarize` |
 
 
 `agent/settings.json` 只记录包名，不锁定扩展版本。新电脑启动时会安装当前可用版本；上表版本只是本机当前参考值。更新已安装的包：
@@ -59,8 +60,8 @@ pi update npm:pi-chrome
 当前重要设置包括：
 
 - 默认 provider：`muryo`
-- 默认模型：`gpt-5.6-sol`
-- 默认思考等级：`medium`
+- 默认模型：`deepseek-v4.1-flash`
+- 默认思考等级：`max`
 - 可循环模型：精选 `muryo` 系列模型（含 `muse-spark-1.3-contributor`）、`muryo/gemini-3.8-flash-high` 与 `muryo/deepseek-v4.1-flash`
 - 主题：`catppuccin-mocha`
 - 隐藏 thinking block
@@ -290,9 +291,20 @@ Chrome 的 Cookie、登录状态、已打开标签页和 profile 不属于 Pi �
 
 该工具仅在 TUI 模式下可用，非交互模式会返回 UI 不可用的结果，不会阻塞运行。
 
+## pi-btw 配置
+
+用于在主任务进行时不中断主流程，在独立的浮层 Modal 中展开并发旁路对话。
+
+- `/btw <问题>`：发起副线提问，支持连续追问
+- `/btw:tangent <问题>`：开启不继承主会话上下文的独立分支
+- `/btw:inject`：将副线讨论结果一键注入回主任务
+- `/btw:summarize`：将副线讨论提炼摘要并送回主任务
+- `/btw:model` / `/btw:thinking`：单独设置副线专用的模型或思考强度
+- 快捷键：`Alt+/`（备用 `Ctrl+Alt+W`）在浮窗与主编辑器之间切换焦点；`Esc` 关闭浮窗
+
 ## Muryo Gemini 配置
 
-通过 Muryo OpenAI Responses 兼容接口访问 Gemini 3.8 Flash High。模型配置位于 `agent/models.json`，凭据使用环境变量 `MURYO_API_KEY`。
+通过 Muryo OpenAI Responses 兼容接口访问 Gemini 3.8 Flash High。模型配置位于 `agent/models.json`，凭据使用环境变量 `MURYO_API_KEY`。思考强度映射（`thinkingLevelMap`）仅开放 `low` 与 `high` 两个挡位。
 
 
 ## pi-subagents 配置

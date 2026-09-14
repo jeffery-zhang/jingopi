@@ -1,8 +1,8 @@
 {
   "lastChangelogVersion": "0.85.1",
   "defaultProvider": "muryo",
-  "defaultModel": "gpt-5.6-sol",
-  "defaultThinkingLevel": "medium",
+  "defaultModel": "deepseek-v4.1-flash",
+  "defaultThinkingLevel": "max",
   "npmCommand": ["npm", "--registry", "https://registry.npmmirror.com"],
   "enabledModels": [
     "muryo/gpt-5.6-sol",
@@ -64,7 +64,8 @@
     "npm:@victor-software-house/pi-curated-themes",
     "npm:pi-subagents",
     "npm:@jingoz/pi-image-input",
-    "npm:pi-hermes-memory"
+    "npm:pi-hermes-memory",
+    "npm:pi-btw"
   ],
   "hideThinkingBlock": true,
   "httpIdleTimeoutMs": 300000,

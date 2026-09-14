@@ -74,7 +74,7 @@
             "text",
             "image"
           ],
-          "contextWindow": 272000,
+          "contextWindow": 353000,
           "maxTokens": 32000,
           "thinkingLevelMap": {
             "off": null,
@@ -140,10 +140,10 @@
             "off": null,
             "minimal": null,
             "low": "low",
-            "medium": "medium",
+            "medium": null,
             "high": "high",
-            "xhigh": "high",
-            "max": "high"
+            "xhigh": null,
+            "max": null
           }
         },
         {
