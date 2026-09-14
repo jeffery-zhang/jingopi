@@ -61,7 +61,7 @@ pi update npm:pi-chrome
 - 默认 provider：`muryo`
 - 默认模型：`gpt-5.6-sol`
 - 默认思考等级：`medium`
-- 可循环模型：精选 `muryo` 系列模型与 `muryo/gemini-3.8-flash-high`
+- 可循环模型：精选 `muryo` 系列模型（含 `muse-spark-1.3-contributor`）、`muryo/gemini-3.8-flash-high` 与 `muryo/deepseek-v4.1-flash`
 - 主题：`catppuccin-mocha`
 - 隐藏 thinking block
 - HTTP 空闲超时：`300000` 毫秒
