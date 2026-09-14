@@ -166,13 +166,7 @@
             "max": "max"
           }
         }
-      ],
-      "headers": {
-        "User-Agent": "PiAgent/1.0",
-        "session_id": "pi-session",
-        "session-id": "pi-session",
-        "x-opencode-session": "pi-session"
-      }
+      ]
     }
   }
 }
