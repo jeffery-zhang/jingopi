@@ -64,7 +64,8 @@
     "npm:@victor-software-house/pi-curated-themes",
     "npm:pi-subagents",
     "npm:@jingoz/pi-image-input",
-    "npm:pi-hermes-memory"
+    "npm:pi-hermes-memory",
+    "npm:pi-antigravity"
   ],
   "hideThinkingBlock": true,
   "httpIdleTimeoutMs": 300000,
