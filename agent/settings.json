@@ -17,6 +17,7 @@
     "muryo/muse-spark-1.3-contributor-free",
     "muryo/gemini-3.8-flash-high",
     "muryo/deepseek-v4.1-flash",
+    "muryo/Atria-Dawn-Preview",
     "antigravity/gemini-3.8-flash"
   ],
   "subagents": {

@@ -61,8 +61,8 @@ pi update npm:pi-chrome
 
 - 默认 provider：`muryo`
 - 默认模型：`deepseek-v4.1-flash`
-- 默认思考等级：`max`
-- 可循环模型：精选 `muryo` 系列模型（含 `muse-spark-1.3-contributor`）、`muryo/gemini-3.8-flash-high`、`muryo/deepseek-v4.1-flash` 与 `antigravity/gemini-3.8-flash`
+- 默认思考等级：`high`
+- 可循环模型：精选 `muryo` 系列模型（含 `muse-spark-1.3-contributor`）、`muryo/gemini-3.8-flash-high`、`muryo/deepseek-v4.1-flash`、`muryo/Atria-Dawn-Preview` 与 `antigravity/gemini-3.8-flash`
 - 主题：`catppuccin-mocha`
 - 隐藏 thinking block
 - HTTP 空闲超时：`300000` 毫秒
@@ -297,6 +297,67 @@ Chrome 的 Cookie、登录状态、已打开标签页和 profile 不属于 Pi �
 ## Muryo Gemini 配置
 
 通过 Muryo OpenAI Responses 兼容接口访问 Gemini 3.8 Flash High。模型配置位于 `agent/models.json`，凭据使用环境变量 `MURYO_API_KEY`。思考强度映射（`thinkingLevelMap`）仅开放 `low` 与 `high` 两个挡位。
+
+## muryo 自定义模型
+
+`agent/models.json` 的 `muryo` provider 下自定义了若干上游未在 Pi 内置目录中列出的模型。接口统一为 `openai-responses`，`baseUrl` 为 `https://cpa.muryorouter.cc/v1`。
+
+| 模型 id | 上下文 | 最大输出 | thinking 映射 | 上游路由 |
+| --- | --- | --- | --- | --- |
+| `Atria-Dawn-Preview` | 262144 (256K) | 32000 | `low`/`medium`/`high` | codex（可用，无图片输入） |
+| `gpt-5.6-sol` / `terra` / `luna` | 353000 | 32000 | `low`…`max` | codex |
+| `gpt-5.5` | 353000 | 32000 | `low`…`xhigh` | codex |
+| `muse-spark-1.3-contributor(-free)` | 1000000 | 64000 | 仅 `xhigh` | — |
+| `gemini-3.8-flash-high` | 1000000 | 32000 | `low`/`high` | — |
+| `deepseek-v4.1-flash` | 1000000 | 32000 | `low`/`high`/`max` | — |
+
+### Atria-Dawn-Preview
+
+新增于 2026-09-16。`text` 输入，262144 (256K) 上下文，`thinkingLevelMap` 只开放 `low`/`medium`/`high`（其余等级为 `null`，Pi 自动降级到最近可用挡位：`off`/`minimal` → `low`，`xhigh`/`max` → `high`）。
+
+#### 上下文与输出上限
+
+- `contextWindow: 262144`：已由上游回显交叉验证——不指定 `max_output_tokens` 时，上游返回 `max_output_tokens: 262131`（`262144` 减去输入已用 token）。
+- `maxTokens: 32000`：**仍为按同族 codex 模型推断，未实测**（上游 `/v1/models` 只返回 `id`/`object`/`owned_by`，无能力元数据）。
+
+#### 图片输入：不支持
+
+`input` 为 `["text"]`。实测该模型**不接受图片输入**（2026-09-16）：
+
+- `/v1/responses` 与 `/v1/chat/completions` 传入图片均返回 `400 {"type":"atria_api_error","code":"upstream_error","message":"Inference request failed."}`
+- 同一 payload 换成 `deepseek-v4.1-flash` / `gemini-3.8-flash-high`、同一提示词能准确报出测试图的条纹顺序，证明测试图与请求格式无误，是模型侧拒绝
+- data URI 与公开 https URL 两种图片来源均被拒；两接口的纯文本对照均 200
+
+因此 `input` 必须为 `["text"]`。声明为图片可用反而会坏：Pi 只在模型**未**声明 `image` 时才启用降级路径（`core/tools/read.js` 的 `getNonVisionImageNote`），声明了就直发图片，结果整个请求被上游 400 拒掉，连文本也拿不到。修正后 `read` 一张图片会优雅降级：
+
+```text
+Read image file [image/png]
+(tool image omitted: model does not support images)
+```
+
+#### 思考等级映射（已验证）
+
+用本地回环 echo server 抓取 pi 实际发出的 `reasoning.effort`：
+
+| `--thinking` | 实际发送 |
+| --- | --- |
+| `off` / `minimal` / `low` | `low` |
+| `medium` | `medium` |
+| `high` / `xhigh` / `max` | `high` |
+
+三挡确实生效：同一提示词的 reasoning 正文长度随挡位明显变化（实测 1042 / 427 / 801 字符），不是伪参数。
+
+#### 已验证的其他行为
+
+- pi 能正确解析 thinking：上游把推理放在 `output[].type="reasoning"` 下的 `content[].type="reasoning_text"`（而非常见的 `summary_text`），pi 仍能还原为独立 `thinking` 内容块。
+- 工具调用正常（`bash` echo 回读、`read` 读图降级均通过）。
+- 上游报的 `usage.output_tokens_details.reasoning_tokens` 恒为 `0`，但 reasoning 正文其实存在。对展示无影响：compact-ui 的 `updateThinkingTokenCount` 有 `reported > 0` 守卫，会回退到本地估算，显示为 `≈<0.1K tok`（`≈` 表示非精确值）。
+
+#### 上游状态
+
+`Atria-Dawn-Preview` 由 Muryo 路由到 `codex` 上游，于 2026-09-16 打通（此前为 `503 auth_unavailable`）。
+
+同一上游下其余 codex 家族模型（`gpt-5.6-sol`/`terra`/`luna`/`gpt-5.5` 等）当前仍返回 `401 Encountered invalidated oauth token`；这些是手动停用状态，不是配置问题。
 
 ## pi-antigravity 配置
 
