@@ -2,12 +2,8 @@
   "lastChangelogVersion": "0.85.1",
   "defaultProvider": "muryo",
   "defaultModel": "deepseek-v4.1-flash",
-  "defaultThinkingLevel": "max",
-  "npmCommand": [
-    "npm",
-    "--registry",
-    "https://registry.npmmirror.com"
-  ],
+  "defaultThinkingLevel": "high",
+  "npmCommand": ["npm", "--registry", "https://registry.npmmirror.com"],
   "enabledModels": [
     "muryo/gpt-5.6-sol",
     "muryo/gpt-5.6-terra",
@@ -28,44 +24,32 @@
       "scout": {
         "model": "muryo/gemini-3.8-flash-high",
         "thinking": "high",
-        "fallbackModels": [
-          "muryo/gpt-5.6-luna:max"
-        ]
+        "fallbackModels": ["muryo/gpt-5.6-luna:max"]
       },
       "researcher": {
         "model": "muryo/gpt-5.6-sol",
         "thinking": "medium",
-        "fallbackModels": [
-          "muryo/gpt-5.6-terra:max"
-        ]
+        "fallbackModels": ["muryo/gpt-5.6-terra:max"]
       },
       "worker": {
         "model": "muryo/gpt-5.6-luna",
         "thinking": "max",
-        "fallbackModels": [
-          "muryo/gemini-3.8-flash-high:high"
-        ]
+        "fallbackModels": ["muryo/gemini-3.8-flash-high:high"]
       },
       "reviewer": {
         "model": "muryo/gpt-5.6-sol",
         "thinking": "xhigh",
-        "fallbackModels": [
-          "muryo/gpt-5.6-terra:max"
-        ]
+        "fallbackModels": ["muryo/gpt-5.6-terra:max"]
       },
       "oracle": {
         "model": "muryo/gpt-5.6-sol",
         "thinking": "xhigh",
-        "fallbackModels": [
-          "muryo/gpt-5.6-terra:max"
-        ]
+        "fallbackModels": ["muryo/gpt-5.6-terra:max"]
       },
       "delegate": {
         "model": "muryo/gemini-3.8-flash-high",
         "thinking": "high",
-        "fallbackModels": [
-          "muryo/gpt-5.6-luna:max"
-        ]
+        "fallbackModels": ["muryo/gpt-5.6-luna:max"]
       }
     }
   },
