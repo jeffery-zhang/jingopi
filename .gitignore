@@ -32,6 +32,7 @@ agent/mcp-cache*/
 agent/mcp-*/
 agent/run-history.jsonl
 agent/tmp/
+tmp/
 web-search-cache/
 web-search-cache.json
 research/
