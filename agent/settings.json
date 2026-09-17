@@ -78,12 +78,12 @@
     "npm:pi-chrome",
     "npm:pi-rtk-optimizer",
     "npm:@jingoz/pi-questionnaire",
+    "npm:pi-tool-display",
     "npm:@victor-software-house/pi-curated-themes",
     "npm:pi-subagents",
     "npm:@jingoz/pi-image-input",
     "npm:pi-hermes-memory",
-    "npm:pi-antigravity",
-    "npm:pi-compact-ui"
+    "npm:pi-antigravity"
   ],
   "hideThinkingBlock": true,
   "httpIdleTimeoutMs": 300000,

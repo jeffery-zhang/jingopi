@@ -31,7 +31,7 @@ pi --version
 | `pi-rtk-optimizer` | `0.9.0` | 自动将 `bash` 重写为 `rtk` 等效命令并压缩工具输出（`bash`/`read`/`grep`），降低上下文占用 | `/rtk`、`/rtk stats` |
 | `@jingoz/pi-questionnaire` | `0.1.0` | TUI 交互式问卷工具，支持单问题和多问题标签界面，用于收集用户偏好与决策 | 无（通过 `questionnaire` 工具参数配置） |
 | `@jingoz/pi-image-input` | `0.2.0` | 将 Pi TUI 原生剪贴板图片路径转换为 `[Image]` 标记和图片附件；要求 Pi `>=0.84.3` 且当前模型支持图片 | 无（重启 Pi 或执行 `/reload`） |
-| `pi-compact-ui` | `0.1.3` | 紧凑树状推理/工具调用视图：把连续 thinking 与工具调用合并成单个可折叠分组，隐藏原生 thinking 占位行，压缩代码块和上下文压缩摘要 | `/compact-ui-config`、`~/.pi/agent/compact-ui.json` |
+| `pi-tool-display` | `0.5.0` | OpenCode 风格精简工具调用、隐藏/摘要工具输出、紧凑 diff 和用户消息框 | `/tool-display`、`~/.pi/agent/extensions/pi-tool-display/config.json` |
 | `@victor-software-house/pi-curated-themes` | `0.2.1` | 65+ 款精选暗色终端主题大合集（适配自 iTerm2 配色，含 Catppuccin、Gruvbox、Kanagawa、Dracula+ 等） | `/settings`（选择主题） |
 | `pi-hermes-memory` | `0.9.7` | 本地持久记忆、项目记忆、历史会话全文检索、自动复盘、纠错记录和 procedural skills | `/memory-insights`、`/memory-skills` |
 | `pi-antigravity` | `0.7.0` | 使用 Google OAuth 直连 Antigravity / Cloud Code Assist 内部 API，提供 Gemini、Claude、GPT-OSS 模型和配额诊断 | `/login antigravity`、`/antigravity.models`、`/antigravity.doctor` |
@@ -257,38 +257,54 @@ Chrome 的 Cookie、登录状态、已打开标签页和 profile 不属于 Pi �
 
 该配置会随仓库同步，用于在新电脑复现当前扩展设置。
 
-## pi-compact-ui 配置
+## pi-tool-display 配置
 
 当前配置文件位于：
 
 ```text
-~/.pi/agent/compact-ui.json
+~/.pi/agent/extensions/pi-tool-display/config.json
 ```
 
-默认值：`collapsedMaxLines=3`、`expandedToolLines=5`、`expandedThinkingLines=10`。交互式调整：
+本机采用精简展示策略：
+
+- `pi-fff` 继续拥有 `read`/`grep`，避免覆盖 FFF 的路径解析和搜索增强。
+- `find`、`ls`、`bash`、`edit`、`write` 使用 `pi-tool-display` 的 renderer。
+- 搜索结果和 MCP 结果隐藏，bash 使用 `opencode` 折叠展示；编辑和写入保留紧凑 diff，可用 `Ctrl+O` 展开。
+- `hideThinkingBlock` 已在全局设置中启用，思考块不显示在主 transcript 中。
+
+交互式设置和状态查看：
 
 ```text
-/compact-ui-config
+/tool-display
+/tool-display show
 ```
 
-### 本地补丁（重要）
+配置变更后执行：
 
-`pi-compact-ui@0.1.3` 原版会无条件重新注册 `read`/`bash`/`edit`/`write`/`find`/`grep`/`ls` 七个内置工具，本机已打补丁移除该注册，原因：
+```text
+/reload
+```
 
-1. 与 `pi-fff` 的 `read`/`grep` 重复注册会被 Pi 判定为扩展加载错误（`Tool "read" conflicts with ...`）。任何 error 级诊断都会让非交互模式（`--print`、`--mode json`、`--mode rpc`）以退出码 1 失败，即 `pi -p` 完全不可用。
-2. 占位定义不带 `promptSnippet`/`promptGuidelines`，而 Pi 会把没有 `promptSnippet` 的工具从系统提示的 `Available tools` 中移除，导致 `bash`/`edit`/`write` 等从提示里消失。公开的 `createXTool()` 工厂不暴露 `promptSnippet`，无法复制，因此只能保留内置定义。
+当前 Pi 为 `0.85.1`，而 `pi-tool-display@0.5.0` 的 peer 依赖声明最高到 `0.80.x`。本配置已在本机通过 Pi 启动、RPC 命令注册和多行 `bash`/`find` smoke test 验证。直接执行 `/tool-display preset opencode` 会把所有 ownership 重置为 `true`，与 `pi-fff` 的 `read`/`grep` 冲突；因此当前配置保留这两个工具为 `false`，`/tool-display show` 显示 `preset=custom` 是预期结果。
 
-补丁后 compact-ui 仍完全接管展示（`Container.prototype.addChild` 补丁 + `ToolGroupComponent` 自己渲染分组，从不调用子组件 `render()`），工具执行仍是 Pi 原生实现。
+### 为什么 `read`/`grep` 必须保持 `false`
 
-- 补丁文件：`~/.pi/agent/npm/node_modules/pi-compact-ui/index.ts`
-- 原文件备份：`~/.pi/tmp/backup-<日期>/pi-compact-ui.index.ts.orig`
-- `pi update --extensions` 会覆盖补丁，升级后需要重新应用（或在补丁注释处恢复上游代码）。
-- 不再需要 `pi-tool-display`，其配置备份保留在 `~/.pi/tmp/backup-<日期>/pi-tool-display.config.json`（`~/.pi/agent/extensions/pi-tool-display/` 目录仅剩孤立配置，不参与扩展加载）。
+`pi-tool-display` 的 `registerToolOverrides.read`/`.grep` 默认为 `true`，会把这两个工具重新注册一遍。而 `pi-fff` 在 `builtInReadEnhancement`/`builtInGrepEnhancement` 开启时也注册 `read`/`grep`，两个扩展同时注册同名工具会被 Pi 判定为扩展加载错误（`Tool "read" conflicts with ...`）。任何 error 级诊断都会让启动以退出码 1 失败（`pi -p`、`--mode json`、`--mode rpc` 全部不可用），并打印 `Hint: Start without extensions using "pi -ne".`。因此 `config.json` 里这两个开关保持 `false`，由 `pi-fff` 拥有它们。
 
-### 与移除 `pi-tool-display` 相关的工具集变化
+改动扩展后请验证（应只出现模型告警，退出码 0）：
 
-- `find`/`ls` 之前是被 `pi-tool-display` 的 ownership 注册顺带激活的（Pi 会把新注册的扩展工具自动加入激活集），移除后回到 Pi 默认激活集。已在 `agent/settings.json` 写入 `defaultTools: ["read","bash","edit","write","grep","find","ls"]` 恢复。注意 `defaultTools` 只控制内置工具，扩展/自定义工具不受影响（严格白名单是命令行 `--tools`）。
-- `read` 不在系统提示的 `Available tools` 中：`pi-fff` 覆写 `read` 时没有提供 `promptSnippet`，而 Pi 不会把无 snippet 的工具列进该区域（也不会从内置定义继承）。这是 `pi-fff` 自身缺口，与本机是否安装 compact-ui 无关；需要时可给 `pi-fff` 的 `read` 注册补上 `promptSnippet`/`promptGuidelines`。
+```bash
+pi -p --no-session "" < /dev/null; echo $?
+```
+
+### 与工具集相关的两点背景
+
+- `agent/settings.json` 的 `defaultTools: ["read","bash","edit","write","grep","find","ls"]` 是显式声明默认激活的内置工具集。`defaultTools` 只控制内置工具，扩展/自定义工具不受影响（严格白名单是命令行 `--tools`）。
+- `read` 不在系统提示的 `Available tools` 中：`pi-fff` 覆写 `read` 时没有提供 `promptSnippet`，而 Pi 不会把无 snippet 的工具列进该区域（也不会从内置定义继承）。这是 `pi-fff` 自身缺口；需要时可给 `pi-fff` 的 `read` 注册补上 `promptSnippet`/`promptGuidelines`。
+
+### 曾评估但不采用的 `pi-compact-ui`
+
+`pi-compact-ui` 会把 thinking 与连续工具调用合并成树状分组，观感更紧凑，但它的原版会无条件重新注册 `read`/`bash`/`edit`/`write`/`find`/`grep`/`ls` 七个内置工具，与 `pi-fff` 的 `read`/`grep` 直接冲突，导致 Pi 启动失败。若要使用，必须先让它跳过 `read`/`grep` 的注册（需 fork 上游 `index.ts`，因为该包没有对应配置项）；其占位定义也缺少 `promptSnippet`，会让工具从系统提示的 `Available tools` 中消失。当前选择继续使用 `pi-tool-display`。
 
 ## pi-questionnaire 配置
 
