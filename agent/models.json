@@ -167,22 +167,23 @@
           }
         },
         {
-          "id": "Atria-Dawn-Preview",
-          "name": "Atria Dawn Preview",
+          "id": "stealth/union-alpha",
+          "name": "Stealth Union Alpha",
           "reasoning": true,
           "input": [
-            "text"
+            "text",
+            "image"
           ],
           "contextWindow": 262144,
-          "maxTokens": 32000,
+          "maxTokens": 64000,
           "thinkingLevelMap": {
             "off": null,
             "minimal": null,
             "low": "low",
-            "medium": "medium",
+            "medium": null,
             "high": "high",
             "xhigh": null,
-            "max": null
+            "max": "max"
           }
         }
       ]
