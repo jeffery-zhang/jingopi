@@ -321,8 +321,6 @@ pi -p --no-session "" < /dev/null; echo $?
 | 模型 id | 上下文 | 最大输出 | thinking 映射 | 上游路由 |
 | --- | --- | --- | --- | --- |
 | `stealth/union-alpha` | 262144 (256K) | 64000 | `low`/`high`/`max` | 已连通（200 OK） |
-| `gpt-5.6-sol` / `terra` / `luna` | 353000 | 32000 | `low`…`max` | codex |
-| `gpt-5.5` | 353000 | 32000 | `low`…`xhigh` | codex |
 | `muse-spark-1.3-contributor(-free)` | 1000000 | 64000 | 仅 `xhigh` | — |
 | `gemini-3.8-flash-high` | 1000000 | 32000 | `low`/`high` | — |
 | `deepseek-v4.1-flash` | 1000000 | 32000 | `low`/`high`/`max` | — |
@@ -336,6 +334,12 @@ pi -p --no-session "" < /dev/null; echo $?
 - 更新为 `stealth/union-alpha` 后重试连接，`/v1/responses` 现已成功连通（200 OK）。
 
 ## 已移除的 muryo 模型
+
+### GPT 系列（2026-09-18 移除）
+
+muryo 上游已不再提供 GPT 系列（原 `gpt-5.6-sol` / `gpt-5.6-terra` / `gpt-5.6-luna` / `gpt-5.5`，均为 `codex` 路由，353000 上下文）。已从 `agent/models.json` 与 `agent/settings.json` 的 `enabledModels` 中删除，`subagents` 块中引用它们的默认模型与回退模型一并改用现存模型（见下文 pi-subagents 配置）。
+
+注：`nvidia` 的 `openai/gpt-oss-20b`、`antigravity` 的 `gpt-oss-120b` 属于其他 provider 的开放权重模型，与 muryo 无关，保留在 `agent/models-store.json` 缓存中。
 
 ### Atria-Dawn-Preview（2026-09-17 移除）
 
@@ -372,14 +376,16 @@ pi -p --no-session "" < /dev/null; echo $?
 
 | 角色 | 模型 | thinking | 回退 |
 | --- | --- | --- | --- |
-| `scout` | `muryo/gemini-3.8-flash-high` | `high` | `muryo/gpt-5.6-luna:max` |
-| `researcher` | `muryo/gpt-5.6-sol` | `medium` | `muryo/gpt-5.6-terra:max` |
-| `worker` | `muryo/gpt-5.6-luna` | `max` | `muryo/gemini-3.8-flash-high:high` |
-| `reviewer` | `muryo/gpt-5.6-sol` | `xhigh` | `muryo/gpt-5.6-terra:max` |
-| `oracle` | `muryo/gpt-5.6-sol` | `xhigh` | `muryo/gpt-5.6-terra:max` |
-| `delegate` | `muryo/gemini-3.8-flash-high` | `high` | `muryo/gpt-5.6-luna:max` |
+| `scout` | `muryo/gemini-3.8-flash-high` | `high` | `muryo/deepseek-v4.1-flash:high` |
+| `researcher` | `muryo/deepseek-v4.1-flash` | `high` | `muryo/gemini-3.8-flash-high:high` |
+| `worker` | `muryo/gemini-3.8-flash-high` | `high` | `muryo/deepseek-v4.1-flash:max` |
+| `reviewer` | `muryo/deepseek-v4.1-flash` | `max` | `muryo/stealth/union-alpha:max` |
+| `oracle` | `muryo/stealth/union-alpha` | `max` | `muryo/deepseek-v4.1-flash:max` |
+| `delegate` | `muryo/gemini-3.8-flash-high` | `high` | `muryo/deepseek-v4.1-flash:high` |
 
-全局默认子 agent 模型为 `muryo/gpt-5.6-sol`，默认 thinking 为 `medium`，`maxThinking` 为 `max`。
+全局默认子 agent 模型为 `muryo/deepseek-v4.1-flash`，默认 thinking 为 `high`，`maxThinking` 为 `max`。
+
+2026-09-18 起 muryo 不再提供 GPT 系列模型，原先承担强推理层的 `gpt-5.6-sol`/`terra`/`luna` 由 `deepseek-v4.1-flash`（1M 上下文、`low`/`high`/`max`）与 `stealth/union-alpha`（256K、`low`/`high`/`max`）替代；快速层继续使用 `gemini-3.8-flash-high`。thinking 只写模型实际支持的挡位（`gemini-3.8-flash-high` 无 `max`、`muse-spark-1.3-contributor` 仅 `xhigh`）。
 
 常用命令：
 
