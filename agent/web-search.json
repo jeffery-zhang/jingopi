@@ -1,1 +1,4 @@
-{}
+{
+  "exaApiKey": "$EXA_API_KEY",
+  "tavilyApiKey": "$TAVILY_API_KEY"
+}
