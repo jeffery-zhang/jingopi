@@ -1,0 +1,16 @@
+{
+  "defaultProvider": "muryo",
+  "defaultModel": "gemini-4-hydrogen-sonar",
+  "lastChangelogVersion": "1.5.2",
+  "packages": [
+    "npm:@ff-labs/pi-fff",
+    "npm:@jingoz/pi-image-input",
+    "npm:@jingoz/pi-model-detect",
+    "npm:@jingoz/pi-prompt-replace",
+    "npm:pi-web-access"
+  ],
+  "defaultThinkingLevel": "high",
+  "extensionChangelogVersions": {
+    "{\"source\":\"npm:pi-web-access\",\"scope\":\"user\"}": "0.48.0"
+  }
+}

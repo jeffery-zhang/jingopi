@@ -1,0 +1,46 @@
+{
+  "providers": {
+    "muryo": {
+      "name": "muryo",
+      "baseUrl": "https://muryorouter.cc/v1",
+      "api": "openai-completions",
+      "apiKey": "$MURYO_API_KEY",
+      "models": [
+        {
+          "id": "gemini-4-hydrogen-sonar",
+          "name": "Gemini 4 Hydrogen Sonar",
+          "reasoning": true,
+          "input": ["text", "image"],
+          "contextWindow": 1048576,
+          "maxTokens": 65536,
+          "thinkingLevelMap": {
+            "off": null,
+            "minimal": null,
+            "low": "low",
+            "medium": "medium",
+            "high": "high",
+            "xhigh": "xhigh",
+            "max": null
+          }
+        },
+        {
+          "id": "devin/claude-opus-5-5",
+          "name": "Claude Opus 5.5",
+          "reasoning": true,
+          "input": ["text", "image"],
+          "contextWindow": 1000000,
+          "maxTokens": 65536,
+          "thinkingLevelMap": {
+            "off": null,
+            "minimal": null,
+            "low": "low",
+            "medium": "medium",
+            "high": "high",
+            "xhigh": "xhigh",
+            "max": "max"
+          }
+        }
+      ]
+    }
+  }
+}

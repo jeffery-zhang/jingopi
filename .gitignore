@@ -1,0 +1,23 @@
+# 敏感凭证与含 API Key 的配置（切勿上传到 GitHub）
+agent/auth.json
+agent/web-search.json
+
+# 自动备份文件
+*.bak*
+backups/
+
+# 会话记录、缓存、二进制与依赖目录
+agent/sessions/
+agent/bin/
+agent/npm/
+agent/fff/
+agent/model-detect/
+agent/pi-web-access/
+node_modules/
+
+# 临时/测试产物
+pelican-bicycle.svg
+
+# 系统文件
+.DS_Store
+Thumbs.db
