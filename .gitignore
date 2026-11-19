@@ -1,6 +1,5 @@
 # 敏感凭证与含 API Key 的配置（切勿上传到 GitHub）
 agent/auth.json
-agent/web-search.json
 
 # 自动备份文件
 *.bak*
