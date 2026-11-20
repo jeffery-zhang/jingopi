@@ -12,6 +12,7 @@ agent/npm/
 agent/fff/
 agent/model-detect/
 agent/pi-web-access/
+agent/trust.json
 node_modules/
 
 # 临时/测试产物
