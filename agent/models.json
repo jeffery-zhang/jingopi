@@ -7,11 +7,11 @@
       "apiKey": "$MURYO_API_KEY",
       "models": [
         {
-          "id": "gemini-4-hydrogen-sonar",
-          "name": "Gemini 4 Hydrogen Sonar",
+          "id": "devin/claude-opus-5-5",
+          "name": "Claude Opus 5.5",
           "reasoning": true,
           "input": ["text", "image"],
-          "contextWindow": 1048576,
+          "contextWindow": 1000000,
           "maxTokens": 65536,
           "thinkingLevelMap": {
             "off": null,
@@ -20,12 +20,12 @@
             "medium": "medium",
             "high": "high",
             "xhigh": "xhigh",
-            "max": null
+            "max": "max"
           }
         },
         {
-          "id": "devin/claude-opus-5-5",
-          "name": "Claude Opus 5.5",
+          "id": "devin/claude-fable-5-2",
+          "name": "Claude Fable 5.2",
           "reasoning": true,
           "input": ["text", "image"],
           "contextWindow": 1000000,

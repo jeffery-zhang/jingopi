@@ -12,6 +12,7 @@ agent/npm/
 agent/fff/
 agent/model-detect/
 agent/pi-web-access/
+agent/web-search-cache/
 agent/trust.json
 node_modules/
 
